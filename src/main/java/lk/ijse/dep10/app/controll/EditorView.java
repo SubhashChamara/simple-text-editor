@@ -2,14 +2,12 @@ package lk.ijse.dep10.app.controll;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.dep10.app.AppInitializer;
+
+import java.util.Optional;
 
 public class EditorView {
 
@@ -61,6 +59,8 @@ public class EditorView {
     @FXML
     private TextField txtReplace;
 
+    private static boolean isEdited = false;
+
     @FXML
     void btnDownOnAction(ActionEvent event) {
 
@@ -98,6 +98,25 @@ public class EditorView {
 
     @FXML
     void mnNewOnAction(ActionEvent event) {
+
+        if(isEdited) {
+            ButtonType buttonNo = new ButtonType("No");
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to save the existing file before create new Text file",buttonNo,ButtonType.YES);
+            Optional<ButtonType> button = confirm.showAndWait();
+            System.out.println(button.get());
+            System.out.println(button.get());
+            if (button.isEmpty() || button.get() == ButtonType.NO) {
+
+                System.out.println("no select");
+                return;
+            }
+            if (button.get() == ButtonType.YES) {
+                mnSaveOnAction(event);
+            }
+        }
+        AppInitializer.observableTitle.set("untitled");
+        txtEditor.setText("");
+        isEdited = false;
 
     }
 

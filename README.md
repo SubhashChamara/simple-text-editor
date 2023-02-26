@@ -12,7 +12,8 @@ As I look forward to expanding the application, I aim to enhance my skills and k
 
  - JavaFX
  - JavaSE
- - Regular Expressions
+ - Scene Builder
+ 
 
 
 ### 2.How to try this project
