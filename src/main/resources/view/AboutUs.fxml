@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="320.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep10.app.controll.AboutUs">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="11.0" layoutY="17.0" prefHeight="292.0" prefWidth="382.0" spacing="10.0">
+         <children>
+            <ImageView fitHeight="110.0" fitWidth="123.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/textMELogo.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" text="TextME" textFill="#0d0d0d">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" text="1.0.0" textFill="#0d0d0d">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" text="TextME is a simple and light weight text editor for desktop" textFill="#0d0d0d" />
+            <Label alignment="CENTER" text="Built on February 24 2023" textFill="#0d0d0d" />
+            <Label alignment="CENTER" prefHeight="27.0" prefWidth="214.0" text="Developed by:M.K.S.C.Udayanga" textFill="#0d0d0d" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="282.0" text="Training Softaware Engineer @ IJSE" textFill="#0d0d0d" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
