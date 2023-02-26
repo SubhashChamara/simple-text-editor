@@ -5,8 +5,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import lk.ijse.dep10.app.AppInitializer;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Optional;
 
 public class EditorView {
@@ -60,6 +64,7 @@ public class EditorView {
     private TextField txtReplace;
 
     private static boolean isEdited = false;
+    private static File fileAddress;
 
     @FXML
     void btnDownOnAction(ActionEvent event) {
@@ -121,8 +126,23 @@ public class EditorView {
     }
 
     @FXML
-    void mnOpenOnAction(ActionEvent event) {
+    void mnOpenOnAction(ActionEvent event) throws IOException {
+        FileChooser fileChooser = new FileChooser();
 
+        fileChooser.setTitle("Open a text file");
+
+        File file = fileChooser.showOpenDialog(txtEditor.getScene().getWindow());
+
+        if(file == null) return;
+
+        fileAddress = file;
+        String fileName = String.valueOf(file);
+        AppInitializer.observableTitle.set(fileName.substring(fileName.lastIndexOf('/')+1));
+        FileInputStream fis = new FileInputStream(file);
+        byte[] bytes = fis.readAllBytes();
+        fis.close();
+        String content = new String(bytes);
+        txtEditor.setText(new String(bytes));
     }
 
     @FXML
