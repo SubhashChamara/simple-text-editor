@@ -10,6 +10,7 @@ import lk.ijse.dep10.app.AppInitializer;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -102,7 +103,7 @@ public class EditorView {
     }
 
     @FXML
-    void mnNewOnAction(ActionEvent event) {
+    void mnNewOnAction(ActionEvent event) throws IOException {
 
         if(isEdited) {
             ButtonType buttonNo = new ButtonType("No");
@@ -151,12 +152,47 @@ public class EditorView {
     }
 
     @FXML
-    void mnSaveAsOnAction(ActionEvent event) {
+    void mnSaveAsOnAction(ActionEvent event) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save a text File");
 
+        File file =fileChooser.showSaveDialog(txtEditor.getScene().getWindow());
+        System.out.println(file);
+        if(file == null)return;
+        fileAddress =file;
+        FileOutputStream fos = new FileOutputStream(file,false);
+
+        String text = txtEditor.getText();
+        byte[] bytes = text.getBytes();
+        fos.write(bytes);
+        fos.close();
+        String fileName = String.valueOf(file);
+        AppInitializer.observableTitle.set(fileName.substring(fileName.lastIndexOf('/')+1));
+        isEdited = false;
     }
 
     @FXML
-    void mnSaveOnAction(ActionEvent event) {
+    void mnSaveOnAction(ActionEvent event) throws IOException {
+        if(!isEdited) return;
+        if (AppInitializer.observableTitle.getValue().equals("untitled")) {
+            Alert inform = new Alert(Alert.AlertType.INFORMATION, "There is no text to save",ButtonType.CLOSE);
+            inform.show();
+            return;
+        }
+        if (AppInitializer.observableTitle.getValue().equals("*untitled")) {
+            mnSaveAsOnAction(event);
+
+
+        } else {
+            FileOutputStream fos = new FileOutputStream(fileAddress, false);
+
+            String text = txtEditor.getText();
+            byte[] bytes = text.getBytes();
+            fos.write(bytes);
+            fos.close();
+            isEdited = false;
+            AppInitializer.observableTitle.set(AppInitializer.observableTitle.get().substring(1));
+        }
 
     }
 
