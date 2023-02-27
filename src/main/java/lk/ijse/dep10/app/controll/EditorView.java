@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -20,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -226,13 +228,10 @@ public class EditorView {
             Optional<ButtonType> button =confirm.showAndWait();
             if(button.isEmpty() || button.get() == ButtonType.CANCEL) return;
             if (button.get() == buttonSaveClose) {
-                System.out.println("save close");
                 mnSaveOnAction(event);
-
                 if(isEdited) return;
             }
         }
-        System.out.println("platform exit");
         Platform.exit();
     }
     @FXML
@@ -242,11 +241,8 @@ public class EditorView {
             ButtonType buttonNo = new ButtonType("No");
             Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to save the existing file before create new Text file",buttonNo,ButtonType.YES);
             Optional<ButtonType> button = confirm.showAndWait();
-            System.out.println(button.get());
-            System.out.println(button.get());
             if (button.isEmpty() || button.get() == ButtonType.NO) {
 
-                System.out.println("no select");
                 return;
             }
             if (button.get() == ButtonType.YES) {
@@ -280,17 +276,11 @@ public class EditorView {
     }
 
     @FXML
-    void mnPrintOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
     void mnSaveAsOnAction(ActionEvent event) throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save a text File");
 
         File file =fileChooser.showSaveDialog(txtEditor.getScene().getWindow());
-        System.out.println(file);
         if(file == null)return;
         fileAddress =file;
         FileOutputStream fos = new FileOutputStream(file,false);
@@ -337,12 +327,20 @@ public class EditorView {
     }
 
     @FXML
-    void rootOnDragDropped(DragEvent event) {
+    void rootOnDragDropped(DragEvent dragEvent) throws IOException {
+        File file =dragEvent.getDragboard().getFiles().get(0);
+        AppInitializer.observableTitle.setValue(file.getName());
+        FileInputStream fis = new FileInputStream(file);
+        byte[] bytes = fis.readAllBytes();
 
+        fis.close();
+        txtEditor.setText(new String(bytes));
+        txtEditorOnKeyReleased();
     }
 
     @FXML
-    void rootOnDragOver(DragEvent event) {
+    void rootOnDragOver(DragEvent dragEvent) {
+        dragEvent.acceptTransferModes(TransferMode.ANY);    //Drag accepted
 
     }
 

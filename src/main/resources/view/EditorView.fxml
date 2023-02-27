@@ -60,11 +60,6 @@
                         <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem fx:id="mnPrint" mnemonicParsing="false" onAction="#mnPrintOnAction" text="Print">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
