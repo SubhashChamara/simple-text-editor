@@ -1,5 +1,6 @@
 package lk.ijse.dep10.app.controll;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -85,7 +86,11 @@ public class EditorView {
 
         AppInitializer.stage.setOnCloseRequest(windowEvent -> {
             if(isEdited) windowEvent.consume();
-            mnCloseOnAction(new ActionEvent());
+            try {
+                mnCloseOnAction(new ActionEvent());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
         });
 
@@ -210,10 +215,26 @@ public class EditorView {
     }
 
     @FXML
-    void mnCloseOnAction(ActionEvent event) {
+    void mnCloseOnAction(ActionEvent event) throws IOException {
+        if (isEdited) {
 
+            ButtonType buttonSaveClose = new ButtonType("Save and Close");
+            ButtonType buttonClose = new ButtonType("Close without Save");
+
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, String.format("Save changers to the Document %s before Closing", AppInitializer.observableTitle)
+                    ,ButtonType.CANCEL,buttonSaveClose,buttonClose);
+            Optional<ButtonType> button =confirm.showAndWait();
+            if(button.isEmpty() || button.get() == ButtonType.CANCEL) return;
+            if (button.get() == buttonSaveClose) {
+                System.out.println("save close");
+                mnSaveOnAction(event);
+
+                if(isEdited) return;
+            }
+        }
+        System.out.println("platform exit");
+        Platform.exit();
     }
-
     @FXML
     void mnNewOnAction(ActionEvent event) throws IOException {
 
@@ -308,6 +329,13 @@ public class EditorView {
 
     }
 
+    private void txtEditorOnKeyReleased() {
+        isEdited = true;
+        if (AppInitializer.observableTitle.get().charAt(0) == '*')return;
+        AppInitializer.observableTitle.set("*".concat(AppInitializer.observableTitle.get()));
+
+    }
+
     @FXML
     void rootOnDragDropped(DragEvent event) {
 
@@ -320,7 +348,7 @@ public class EditorView {
 
     @FXML
     void txtEditorOnMouseClicked(MouseEvent event) {
-
+        txtEditorOnKeyReleased();
     }
 
 }
