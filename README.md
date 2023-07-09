@@ -20,12 +20,17 @@ As I look forward to expanding the application, I aim to enhance my skills and k
   
   To try out the project, please follow these Git commands in your terminal:
   1. Clone the Project 
-     
-   
-  2. Build the project from parent folder
+   ```
+   git clone https://github.com/SubhashChamara/simple-text-editor.git
+   ```
+  3. Build the project from parent folder
     mvn clean install
   
   Then execute the ApplicationWrapper class  
+
+  Project Demo
+
+  
   
 ### Contact
  
