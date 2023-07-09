@@ -13,8 +13,6 @@ As I look forward to expanding the application, I aim to enhance my skills and k
  - JavaFX
  - JavaSE
  - Scene Builder
- 
-
 
 ### 2.How to try this project
   
@@ -31,6 +29,7 @@ As I look forward to expanding the application, I aim to enhance my skills and k
   Project Demo
 
   
+https://github.com/SubhashChamara/simple-text-editor/assets/112160411/3ddb68ec-1cf0-44bb-a536-0c54fb996bad
   
 ### Contact
  
