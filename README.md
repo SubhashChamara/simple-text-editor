@@ -44,4 +44,6 @@ https://github.com/SubhashChamara/simple-text-editor/assets/112160411/3ddb68ec-1
 
 
 ### License
+This application is licensed under this [license](License.txt)
+
 Copyright &copy; 2023 | Subhash Chamara Udayanga | All Rights Reserved.
